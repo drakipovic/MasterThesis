@@ -1,0 +1,20 @@
+\BOOKMARK [0][-]{label:frontpage.0}{Pocetna}{}% 1
+\BOOKMARK [0][-]{label:sadrzaj.0}{Sadr\236aj}{}% 2
+\BOOKMARK [0][-]{chapter*.2}{Uvod}{}% 3
+\BOOKMARK [0][-]{chapter.1}{1 Odreivanje autorstva}{}% 4
+\BOOKMARK [1][-]{section.1.1}{1.1 Izvlacenje znacajki}{chapter.1}% 5
+\BOOKMARK [2][-]{subsection.1.1.1}{1.1.1 Leksicke znacajke}{section.1.1}% 6
+\BOOKMARK [2][-]{subsection.1.1.2}{1.1.2 Strukturne znacajke}{section.1.1}% 7
+\BOOKMARK [2][-]{subsection.1.1.3}{1.1.3 Sintaksne znacajke}{section.1.1}% 8
+\BOOKMARK [1][-]{section.1.2}{1.2 Selekcija znacajki}{chapter.1}% 9
+\BOOKMARK [2][-]{subsection.1.2.1}{1.2.1 ExtraTreeClassifier}{section.1.2}% 10
+\BOOKMARK [2][-]{subsection.1.2.2}{1.2.2 VarianceThreshold}{section.1.2}% 11
+\BOOKMARK [1][-]{section.1.3}{1.3 Slucajna \235uma}{chapter.1}% 12
+\BOOKMARK [2][-]{subsection.1.3.1}{1.3.1 Gini necistoca}{section.1.3}% 13
+\BOOKMARK [2][-]{subsection.1.3.2}{1.3.2 Uzajamni sadr\236aj informacije}{section.1.3}% 14
+\BOOKMARK [1][-]{section.1.4}{1.4 Priklupljanje podataka}{chapter.1}% 15
+\BOOKMARK [1][-]{section.1.5}{1.5 Rezultati i rasprava}{chapter.1}% 16
+\BOOKMARK [0][-]{chapter*.3}{Zakljucak}{}% 17
+\BOOKMARK [0][-]{chapter*.4}{Sa\236etak}{}% 18
+\BOOKMARK [0][-]{chapter*.5}{Summary}{}% 19
+\BOOKMARK [0][-]{chapter*.6}{Literatura}{}% 20

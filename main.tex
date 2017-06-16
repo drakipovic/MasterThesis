@@ -1,0 +1,30 @@
+\input{setup.tex}
+\begin{document}
+
+%frontmatter
+%\pagestyle{empty} %disable headers and footers
+\pagenumbering{roman} %use roman page numbering in the frontmatter
+\input{sections/frontpage.tex}
+\cleardoublepage
+\pdfbookmark[0]{Sadržaj}{label:sadrzaj}
+%\pagestyle{fancy} %enable headers and footers again
+\newgeometry{top=0mm,bottom=25mm,right=25mm,left=25mm}
+\tableofcontents 
+%\listoftodos
+
+\cleardoublepage
+
+%mainmatter
+\pagenumbering{arabic} %use arabic page numbering in the mainmatter
+\input{sections/introduction.tex}
+
+\input{sections/deanonymization.tex}
+
+\input{sections/conclusion.tex}
+
+\input{sections/summary_croatian.tex}
+\input{sections/summary_english.tex}
+
+\printbibliography[heading=bibintoc, title={Literatura}]
+
+\end{document}
