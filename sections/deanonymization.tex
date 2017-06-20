@@ -23,7 +23,7 @@ Sintaksne značajke se dobiju kako je već spomenuto iz apstraktnog sintaksnog s
 
 
 \section{Selekcija značajki}
-Ovako kreirane značajke rezultiraju u ogromnim, rijetkim vektorima, čija veličina nekada doseže i stotine tisuća brojeva. Razlog tomu leži u definiciji značajki poput frekvencije tokena, frekvencije bigrama, itd. Rijetkost očitujemo u velikom broju nula unutar vektora. Rijetkost, također,  može uzrokovati loš izabir idućeg čvora u klasifikatoru slučajne šume te s time i lošije rezultate. S velikim vektorima također dolazi i do puno sporijeg učenja klasifikatora jer će sva stabla odluka unutar slučajne šume imati više čvorova. Zbog svih navedenih razloga prije samog učenja klasifikatora napravljena je selekcija značajki koja odabire manji broj značajki koje sadrže dovoljno informacija da bi se klasifikator bolje i brže naučio. Tehnika selekcije značajki je mnogo pa ih ovdje neću detaljno opisivati nego ću se bazirati na algoritmima koji su korišteni za ovaj diplomski rad, a to su \textit{ExtraTreeClassifier} \cite{extratree} i \textit{VarianceThreshold} \cite{variance}. Više o rezultatima sa i bez selekcije značajki u poglavlju \ref{results}
+Ovako kreirane značajke rezultiraju u ogromnim, rijetkim vektorima, čija veličina nekada doseže i stotine tisuća brojeva. Razlog tomu leži u definiciji značajki poput frekvencije tokena, frekvencije bigrama, itd. Rijetkost očitujemo u velikom broju nula unutar vektora. Rijetkost, također,  može uzrokovati loš izabir idućeg čvora u klasifikatoru slučajne šume te s time i lošije rezultate. S velikim vektorima također dolazi i do puno sporijeg učenja klasifikatora jer će sva stabla odluka unutar slučajne šume imati više čvorova. Zbog svih navedenih razloga prije samog učenja klasifikatora napravljena je selekcija značajki koja odabire manji broj značajki koje sadrže dovoljno informacija da bi se klasifikator bolje i brže naučio. Tehnika selekcije značajki je mnogo pa ih ovdje neću sve detaljno opisivati nego ću se bazirati na algoritmima koji su korišteni za ovaj diplomski rad, a to su \textit{ExtraTreeClassifier} \cite{extratree} i \textit{VarianceThreshold} \cite{variance}. Više o rezultatima sa i bez selekcije značajki u poglavlju \ref{results}
 
 \subsection{ExtraTreeClassifier}
 
@@ -54,10 +54,12 @@ Uzajamni sadržaj informacije definiran je kao:
 \begin{equation}
 		I(X;Y_{i}) = H(X) - H(X | Y_{i})
 \end{equation}
-gdje je \textit{X} klasa(autor), a $Y_{i}$ i-ta značajka iz skupa. Intuitivno ga možemo zamisliti kao količinu informacije koju daje značajka i za klasu kojoj pripada.
+gdje je \textit{X} klasa(autor), a $Y_{i}$ i-ta značajka iz skupa. Intuitivno ga možemo zamisliti kao količinu informacije koju daje značajka $i$ za klasu kojoj pripada.
 
-\section{Priklupljanje podataka}
+\section{Prikupljanje podataka}
+
 
 \section{Rezultati i rasprava} \label{results}
 
+\newgeometry{bottom=25mm, top=0mm, right=25mm, left=25mm}
 
