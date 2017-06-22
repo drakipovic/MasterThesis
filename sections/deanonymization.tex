@@ -3,35 +3,100 @@ U svijetu u kojem ne postoje unaprijed određena pravila pisanja programskog kod
 
 	Za rješavanje ovog problema korišteno je strojno učenje. Strojno učenje je grana umjetne inteligencije koja se bavi algoritmima koji mogu učiti na i raditi predviđanja nad skupovima podataka. Kako bi mogli strojno učiti moramo imati skupove podataka s označenim kategorijama nad kojima algoritam uči. U ovom slučaju podaci su izvorni kodovi, a kategorije autori koji su ih napisali. Konkretno, korišten je klasifikator slučajne šume. Konfiguracija klasifikatora je detaljnije opisana u nastavku poglavlja. Klasifikacija je postupak u kojem određujemo kojoj kategoriji (od unaprijed određenih) novi podaci pripadaju. Algoritmi strojnog učenja uglavnom primaju ulazne podatke u obliku brojeva pa je potrebno izvorni kod pretvoriti u vektor brojeva u kojem će svaki broj biti neka od značajki. Te značajke su podijeljenje u leksičke, sintaksne i strukturalne. Što bolje značajke odaberemo algoritam će bolje moći odvajati kategorije tj. autore. Značajke dobijemo parsiranjem izvornog koda te ću postupak detaljnije opisati u nastavku poglavlja.
 \newpage
-\newgeometry{top=25mm, bottom=25mm, left=25mm, right=25mm}
+\newgeometry{top=25mm, bottom=25mm, left=30mm, right=25mm}
 	
 \section{Izvlačenje značajki}
 Kao što je već spomenuto, kako bi algoritmi strojnog učenja radili potrebni su im brojčani podaci kao ulazi. Izvorni kod se u brojčani vektor značajki pretvara koristeći ideju prvi put opisanu u radu \cite{islam}, a ideja je da se izvorni kod pretvori u vektor značajki sastavljen od tri dijela, leksičkog, sintaksnog i strukturnog. Leksičke i strukturalne značajke se dobiju izravno parsiranjem izvornog koda, dok nam je za sintaksne značajke potrebno apstraktno sintaksno stablo izvornog koda. Ovako definiran skup značajki je drugačiji za svaki pojedini programski jezik zbog različitosti među njima (npr. drugačije ključne riječi) te je potrebno napisati poseban parser za svaki od njih. U ovom radu naglasak je na programskom jeziku C++ te je izvlačenje značajki implementirano samo za njega. \\
 
-	U nastavku su detaljno opisana i objašnjena sva tri tipa značajki. Većina tih značajki preuzeta je iz \cite{islam} dok su neke ideja samog autora ovog rada. U većini značajki korištena je matematička operacija prirodnog logaritmiranja zbog svojstva da kako idemo prema većim vrijednostima ona sve manje i manje raste te dobro opisuje relativne razlike među značajkama.
+	U nastavku su detaljno opisana i objašnjena sva tri tipa značajki. Većina tih značajki preuzeta je iz \cite{islam} dok su neke ideja samog autora. U većini značajki korištena je matematička operacija prirodnog logaritmiranja zbog svojstva da kako idemo prema većim vrijednostima ona sve manje i manje raste te dobro opisuje relativne razlike među značajkama te su neke podijeljenje s duljinom izvornog koda kako bi bolje opisale frekvenciju. 
 
 \subsection{Leksičke značajke}
-Leksičke značajke opisuju preferira li autor izvornog koda neke ključne riječi više od drugih(npr. for više od while), koristi li više funkcije ili piše monolitan kod, razne statistike(npr. prosječan broj parametara unutar funkcija), itd. Također izvorni kod se tokenizira te se računa frekvencija tako dobivenih tokena. \textit{Tablica} 1 detaljno opisuje svaku od korištenih značajki. 
+Leksičke značajke opisuju preferira li autor izvornog koda neke ključne riječi više od drugih(npr. for više od while), koristi li više funkcije ili piše monolitan kod, razne statistike(npr. prosječan broj parametara unutar funkcija), itd. Također izvorni kod se tokenizira te se računa frekvencija tako dobivenih tokena. \textit{Tablica} \ref{lexical} detaljno opisuje svaku od korištenih značajki. 
 
+\newpage
+\newgeometry{top=25mm,bottom=25mm,right=25mm,left=30mm}
+\begin{table}[]
+\centering
+\caption{Definicija leksičkih značajki}
+\label{lexical}
+\begin{adjustbox}{width=\textwidth, totalheight=\textheight,keepaspectratio}
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{\textit{Ime značajke}}                 & \textbf{\textit{Definicija}}                                                                                                                              & \textbf{\textit{Izraz}}                       & \textbf{\textit{Veličina}}                                                                                             \\ \hline
+Frekvencija unigrama           & \begin{tabular}[c]{@{}l@{}}Unigram definiramo kao jednu riječ\\  izvornog koda\end{tabular}                                             & UnigramFreq                 & \begin{tabular}[c]{@{}l@{}}dinamično, oko 20000 za 2160 \\ izvornih kodova (216 autora)\end{tabular} \\ \hline
+Broj naredbi grananja i petlji & \begin{tabular}[c]{@{}l@{}}Zbroj svih pojavljivanja naredbi grananja\\ i petlji(for, while, do, if, else if, else, switch)\end{tabular} & ln(zbroj/duljina)           & 7                                                                                                    \\ \hline
+Broj ključnih riječi           & \begin{tabular}[c]{@{}l@{}}Zbroj svih pojavljivanja ključnih riječi\\ programskog jezika, konkretno C++.\end{tabular}                   & ln(zbroj\_kljucne/duljina)  & 1                                                                                                    \\ \hline
+Ternarni operatori             & Broj pojavljivanja ternarnog operatora                                                                                                  & ln(broj\_ternarnih/duljina) & 1                                                                                                    \\ \hline
+Komentari                      & Broj pojavljivanja komentara                                                                                                            & ln(broj\_kom/duljina)       & 1                                                                                                    \\ \hline
+Konstante                      & \begin{tabular}[c]{@{}l@{}}Broj pojavljivanja znakovnih i brojčanih \\ konstanti\end{tabular}                                           & ln(broj\_konst/duljina)     & 1                                                                                                    \\ \hline
+Makro naredbe                  & Broj pojavljivanja makro naredbi                                                                                                        & ln(broj\_makro/duljina)     & 1                                                                                                    \\ \hline
+Funkcije                       & Broj funkcija                                                                                                                           & ln(broj\_fun/duljina)       & 1                                                                                                    \\ \hline
+Tokeni                         & \begin{tabular}[c]{@{}l@{}}Token je ekvivalentan unigramu, zbroj \\ svih tokena\end{tabular}                                            & ln(broj\_token/duljina)     & 1                                                                                                    \\ \hline
+Mjere duljine linija           & \begin{tabular}[c]{@{}l@{}}Standardna devijacija i prosjek duljine \\ linija\end{tabular}                                               & stddev(linije), avg(linije) & 2                                                                                                    \\ \hline
+Mjere parametara funkcija      & \begin{tabular}[c]{@{}l@{}}Standardna devijacija i prosjek broja \\ parametera funkcija\end{tabular}                                    & stddev(param), avg(param)   & 2                                                                                                    \\ \hline
+Operatori                      & \begin{tabular}[c]{@{}l@{}}Zbroj pojavljivanja svih operatora \\ programskog jezika\end{tabular}                                        & ln(zbroj\_op/duljina)       & 1                                                                                                    \\ \hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
 
 \subsection{Strukturne značajke}
-Strukturne značajke opisuju kakvu strukturu autor koristi dok piše izvorni kod, npr. koristi li tabove ili razmake na početku linije, piše li novu liniju prije nego otvori kontrolni blok, itd. \textit{Tablica} 2 detaljno opisuje svaku od korištenih značajki.
+Strukturne značajke opisuju kakvu strukturu autor koristi dok piše izvorni kod, npr. koristi li tabove ili razmake na početku linije, piše li novu liniju prije nego otvori kontrolni blok, itd. \textit{Tablica} \ref{layout} detaljno opisuje svaku od korištenih značajki.
+
+\begin{table}[]
+\centering
+\caption{Definicija strukturnih značajki}
+\label{layout}
+\begin{adjustbox}{width=\textwidth, totalheight=\textheight,keepaspectratio}
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{\textit{Ime značajke}}                 & \textbf{\textit{Definicija}}                                                                                                                              & \textbf{\textit{Izraz}}                       & \textbf{\textit{Veličina}}                                                                                             \\ \hline
+Tabovi                                                                         & Broj svih tabova                                                                                  & ln(broj\_tabova/duljina)   & 1        \\ \hline
+Razmaci                                                                        & Broj svih razmaka                                                                                 & ln(broj\_razmaka/duljina)  & 1        \\ \hline
+Omjer razmaka                                                                  & \begin{tabular}[c]{@{}l@{}}Omjer razmaka(tabovi se broje) \\ i ostalih znakova\end{tabular}       & ln(zbroj\_kljucne/duljina) & 1        \\ \hline
+\begin{tabular}[c]{@{}l@{}}Nova linija prije\\ vitičastih zagrada\end{tabular} & \begin{tabular}[c]{@{}l@{}}Koristi li autor novi red kada\\ otvara vitičastu zagradu\end{tabular} & boolean                    & 1        \\ \hline
+\begin{tabular}[c]{@{}l@{}}Tabovi ili razmaci\\ na početku linije\end{tabular} & \begin{tabular}[c]{@{}l@{}}Koristi li autor tabove ili\\ razmake na početku linije\end{tabular}   & boolean                    & 1        \\ \hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
 
 
 \subsection{Sintaksne značajke}
-Sintaksne značajke se dobiju kako je već spomenuto iz apstraktnog sintaksnog stabla izvornog koda. One su što se vremena tiče najskuplje jer kreacija apstraktnih sintaksnih stabala nije brza, no trebale bi dati odlične značajke koje bi uvelike pomogle u deanonimizaciji. Apstraktna sintaksna stabla su kreirana koristeći alat \textit{joern} \cite{joern}. Ovaj alat nudi posebnu skriptu \textit{joern-parse} koja parsira i vraća čvorove i bridove apstraktnog sintaksnog stabla.\textit{Tablica} 3 detaljno opisuje svaku od korištenih značajki.
+Sintaksne značajke se dobiju kako je već spomenuto iz apstraktnog sintaksnog stabla izvornog koda. One su što se vremena tiče najskuplje jer kreacija apstraktnih sintaksnih stabala nije brza, no trebale bi dati odlične značajke koje bi uvelike pomogle u deanonimizaciji. Apstraktna sintaksna stabla su kreirana koristeći alat \textit{joern} \cite{joern}. Ovaj alat nudi posebnu skriptu \textit{joern-parse} koja parsira i vraća čvorove i bridove apstraktnog sintaksnog stabla. Postoji 58 različitih tipova čvorova koje definira \textit{joern} te su oni navedeni u \ref{node_types} \textit{Tablica} \ref{syntax} detaljno opisuje svaku od korištenih značajki.
+
+\begin{table}[]
+\centering
+\caption{Definicija sintaksnih značajki}
+\label{syntax}
+\begin{adjustbox}{width=\textwidth, totalheight=\textheight,keepaspectratio}
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textit{\textbf{Ime značajke}}                                    & \textit{\textbf{Definicija}}                                                                     & \textit{\textbf{Izraz}} & \textit{\textbf{Veličina}}                                                                \\ \hline
+Bigrami  čvorova                                                  & \begin{tabular}[c]{@{}l@{}}Bigrami čvorova su dva čvora \\ koja su povezana u ASS-u\end{tabular} & bigrami\_čvorovaTF      & \begin{tabular}[c]{@{}l@{}}dinamičko, oko 150000 za 2160 \\ izvornih kodova\end{tabular}  \\ \hline
+Tip čvora ASS-a                                                   & \begin{tabular}[c]{@{}l@{}}Frekvencija pojavljivanja tipa\\ čvora ASS-a\end{tabular}             & tip\_čvoraTF            & 58                                                                                        \\ \hline
+\begin{tabular}[c]{@{}l@{}}Vrijednost lista \\ ASS-a\end{tabular} & \begin{tabular}[c]{@{}l@{}}Frekvencija vrijednosti listova\\ ASS-a\end{tabular}                  & list\_vTF               & \begin{tabular}[c]{@{}l@{}}dinamičko, oko 10000 za 2160\\ \\ izvornih kodova\end{tabular} \\ \hline
+
+\end{tabular}
+\end{adjustbox}
+\end{table}
 
 
 \section{Selekcija značajki}
-Ovako kreirane značajke rezultiraju u ogromnim, rijetkim vektorima, čija veličina nekada doseže i stotine tisuća brojeva. Razlog tomu leži u definiciji značajki poput frekvencije tokena, frekvencije bigrama, itd. Rijetkost očitujemo u velikom broju nula unutar vektora. Rijetkost, također,  može uzrokovati loš izabir idućeg čvora u klasifikatoru slučajne šume te s time i lošije rezultate. S velikim vektorima također dolazi i do puno sporijeg učenja klasifikatora jer će sva stabla odluka unutar slučajne šume imati više čvorova. Zbog svih navedenih razloga prije samog učenja klasifikatora napravljena je selekcija značajki koja odabire manji broj značajki koje sadrže dovoljno informacija da bi se klasifikator bolje i brže naučio. Tehnika selekcije značajki je mnogo pa ih ovdje neću sve detaljno opisivati nego ću se bazirati na algoritmima koji su korišteni za ovaj diplomski rad, a to su \textit{ExtraTreeClassifier} \cite{extratree} i \textit{VarianceThreshold} \cite{variance}. Više o rezultatima sa i bez selekcije značajki u poglavlju \ref{results}
+Ovako kreirane značajke rezultiraju u ogromnim, rijetkim vektorima, čija veličina nekada doseže i stotine tisuća brojeva. Razlog tomu leži u definiciji značajki poput frekvencije tokena, frekvencije bigrama, itd. Rijetkost očitujemo u velikom broju nula unutar vektora. Rijetkost, također,  može uzrokovati loš izabir idućeg čvora u klasifikatoru slučajne šume te s time i lošije rezultate. S velikim vektorima također dolazi i do puno sporijeg učenja klasifikatora jer će sva stabla odluka unutar slučajne šume imati više čvorova. Zbog svih navedenih razloga prije samog učenja klasifikatora napravljena je selekcija značajki koja odabire manji broj značajki koje sadrže dovoljno informacija da bi se klasifikator bolje i brže naučio. Tehnika selekcije značajki je mnogo pa ih ovdje neću sve detaljno opisivati nego ću se bazirati na tehnikama koje su korištene za ovaj diplomski rad, a to su selekcija značajki po sadržaju informacije te selekcija značajki po iznosu varijance. Više o rezultatima sa i bez selekcije značajki u poglavlju \ref{results}.
 
-\subsection{ExtraTreeClassifier}
+\subsection{Selekcija značajki po sadržaju informacije}
 
-\subsection{VarianceThreshold}
+Svaka pojedinačna značajka vektora značajki nosi sa sobom neku količinu ili sadržaj informacije(eng. \textit{information gain}), te nam ona igovori koliko je ta značajka bitna. Selektiramo samo one značajke koje sa sobom nose najveći sadržaj informacije. Definicija sadržaja informacije je detaljnije opisana u \ref{entropy}.
+
+\subsection{Selekcija značajki po iznosu varijance}
+
+Značajke su brojevi pa nad njima možemo računati razne statistike pa tako i varijancu. Ova selekcija značajki odbacuje sve značajke koje ne pređu unaprijed određenu granicu(eng. \textit{threshold}) iznosa varijance.
 
 \section{Slučajna šuma}
 
-Slučajna šuma je klasifikator koji se sastoji od kolekcije nezavisnih stabala odlučivanja. Svako od stabala predstavlja jedan glas u većinskom donošenju odluke. Odluka se donosi zbrajanjem glasova te se odabire odluka s najvećim brojem glasova \cite{rfdef}. Slučajna šuma jer je u svojoj osnovi samo skup stabala vrlo dobro podnosi veliku dimenzionalnost podataka (što za ovaj problem očekujemo) i ne očekuje linearnu odvojivost vektora značajki te je iz tih razloga odabrana kao korišteni algoritam.  \\
+Slučajna šuma \cite{breiman} je klasifikator koji se sastoji od kolekcije nezavisnih stabala odlučivanja. Svako od stabala predstavlja jedan glas u većinskom donošenju odluke. Odluka se donosi zbrajanjem glasova te se odabire odluka s najvećim brojem glasova \cite{rfdef}. Slučajna šuma jer je u svojoj osnovi samo skup stabala vrlo dobro podnosi veliku dimenzionalnost podataka (što za ovaj problem očekujemo) i ne očekuje linearnu odvojivost vektora značajki te je iz tih razloga odabrana kao korišteni algoritam.  \\
 	
 	Svako od N stabala odluke je izgrađeno nasumičnim uzorkovanjem s ponavljanjima skupa za treniranje tako da se uzorkuje podskup duljine \textit{N}. Stabla se grade do maksimalne moguće dubine iako postoje instance algoritma u kojem se stabla podrezuju. U izgradnji stabla ponovno se slučajno odabire podskup značajki kojih ima \textit{M}. Veličina tog podskupa je hiperparametar algoritma, u literaturi \cite{statisticallearning} se za klasifikacijski problem preporuča veličina od $\sqrt{M}$. Od tog podskupa treba odabrati najbolju značajku koja će biti iskorištena za idući čvor stabla. Odabir najbolje značajke uobičajeno se radi metodama Gini nečistoće ili uzajamnog sadržaja informacije.
 	
@@ -43,7 +108,7 @@ Gini nečistoća je mjera koliko često bi nasumično odabrana značajka iz neko
 \end{equation}
 gdje je $p(i | t)$ broj značajki koje pripadaju klasi \textit{i} za čvor \textit{t}. 
 
-\subsection{Uzajamni sadržaj informacije}
+\subsection{Uzajamni sadržaj informacije} \label{entropy}
 
 Uzajamni sadržaj informacije je koncept baziran na entropiji. Entropija je definirana kao količina informacije koju nosi neka poruka te ju računamo:
 \begin{equation}
@@ -57,7 +122,7 @@ Uzajamni sadržaj informacije definiran je kao:
 gdje je \textit{X} klasa(autor), a $Y_{i}$ i-ta značajka iz skupa. Intuitivno ga možemo zamisliti kao količinu informacije koju daje značajka $i$ za klasu kojoj pripada.
 
 \section{Prikupljanje podataka}
-
+Izvorni kodovi korišteni u eksperimentima djelo su učenika srednjih i osnovih škola koji su se natjecali na HONI-u \cite{honi} u godini 2016-2017. Skupljena su dva skupa podataka, jedan od 216 autora gdje svaki od njih ima 10 izvornih kodova i drugi od 29 autora s također 10 izvornih kodova, ali ovaj put su to izvorni kodovi kao rješenja istih 10 zadataka dok su u prvom primjeru oni birani nasumično. 
 
 \section{Rezultati i rasprava} \label{results}
 
