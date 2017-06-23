@@ -63,7 +63,7 @@ Omjer razmaka                                                                  &
 
 
 \subsection{Sintaksne značajke}
-Sintaksne značajke se dobiju kako je već spomenuto iz apstraktnog sintaksnog stabla izvornog koda. One su što se vremena tiče najskuplje jer kreacija apstraktnih sintaksnih stabala nije brza, no trebale bi dati odlične značajke koje bi uvelike pomogle u deanonimizaciji. Apstraktna sintaksna stabla su kreirana koristeći alat \textit{joern} \cite{joern}. Ovaj alat nudi posebnu skriptu \textit{joern-parse} koja parsira i vraća čvorove i bridove apstraktnog sintaksnog stabla. Postoji 58 različitih tipova čvorova koje definira \textit{joern} te su oni navedeni u \ref{node_types} \textit{Tablica} \ref{syntax} detaljno opisuje svaku od korištenih značajki.
+Sintaksne značajke se dobiju kako je već spomenuto iz apstraktnog sintaksnog stabla izvornog koda. One su što se vremena tiče najskuplje jer kreacija apstraktnih sintaksnih stabala nije brza, no trebale bi dati odlične značajke koje bi uvelike pomogle u deanonimizaciji. Apstraktna sintaksna stabla(ASS) su kreirana koristeći alat \textit{joern} \cite{joern}. Ovaj alat nudi posebnu skriptu \textit{joern-parse} koja parsira i vraća čvorove i bridove apstraktnog sintaksnog stabla. Postoji 58 različitih tipova čvorova(detalji u dodatku A) koje definira \textit{joern}.\textit{Tablica} \ref{syntax} detaljno opisuje svaku od korištenih značajki.
 
 \begin{table}[]
 \centering
@@ -96,7 +96,15 @@ Značajke su brojevi pa nad njima možemo računati razne statistike pa tako i v
 
 \section{Slučajna šuma}
 
-Slučajna šuma \cite{breiman} je klasifikator koji se sastoji od kolekcije nezavisnih stabala odlučivanja. Svako od stabala predstavlja jedan glas u većinskom donošenju odluke. Odluka se donosi zbrajanjem glasova te se odabire odluka s najvećim brojem glasova \cite{rfdef}. Slučajna šuma jer je u svojoj osnovi samo skup stabala vrlo dobro podnosi veliku dimenzionalnost podataka (što za ovaj problem očekujemo) i ne očekuje linearnu odvojivost vektora značajki te je iz tih razloga odabrana kao korišteni algoritam.  \\
+Slučajna šuma \cite{breiman} je klasifikator koji se sastoji od kolekcije nezavisnih stabala odlučivanja. Svako od stabala predstavlja jedan glas u većinskom donošenju odluke. Odluka se donosi zbrajanjem glasova te se odabire odluka s najvećim brojem glasova \cite{rfdef}. Ovo detaljnije možemo vidjeti na slici \ref{fig:rf}. Slučajna šuma jer je u svojoj osnovi samo skup stabala vrlo dobro podnosi veliku dimenzionalnost podataka (što za ovaj problem očekujemo) i ne očekuje linearnu odvojivost vektora značajki te je iz tih razloga odabrana kao korišteni algoritam.  \\
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics{fig/random-forest-overview.jpg}
+	\caption{Arhitektura slučajne šume \cite{fig-rf}}
+	\label{fig:rf}
+\end{figure}
+
 	
 	Svako od N stabala odluke je izgrađeno nasumičnim uzorkovanjem s ponavljanjima skupa za treniranje tako da se uzorkuje podskup duljine \textit{N}. Stabla se grade do maksimalne moguće dubine iako postoje instance algoritma u kojem se stabla podrezuju. U izgradnji stabla ponovno se slučajno odabire podskup značajki kojih ima \textit{M}. Veličina tog podskupa je hiperparametar algoritma, u literaturi \cite{statisticallearning} se za klasifikacijski problem preporuča veličina od $\sqrt{M}$. Od tog podskupa treba odabrati najbolju značajku koja će biti iskorištena za idući čvor stabla. Odabir najbolje značajke uobičajeno se radi metodama Gini nečistoće ili uzajamnog sadržaja informacije.
 	
@@ -122,9 +130,87 @@ Uzajamni sadržaj informacije definiran je kao:
 gdje je \textit{X} klasa(autor), a $Y_{i}$ i-ta značajka iz skupa. Intuitivno ga možemo zamisliti kao količinu informacije koju daje značajka $i$ za klasu kojoj pripada.
 
 \section{Prikupljanje podataka}
-Izvorni kodovi korišteni u eksperimentima djelo su učenika srednjih i osnovih škola koji su se natjecali na HONI-u \cite{honi} u godini 2016-2017. Skupljena su dva skupa podataka, jedan od 216 autora gdje svaki od njih ima 10 izvornih kodova i drugi od 29 autora s također 10 izvornih kodova, ali ovaj put su to izvorni kodovi kao rješenja istih 10 zadataka dok su u prvom primjeru oni birani nasumično. 
+Izvorni kodovi korišteni u eksperimentima djelo su učenika srednjih i osnovih škola koji su se natjecali na HONI-u\footnote{http://www.hsin.hr/honi/} u godini 2016-2017. Skupljena su dva skupa podataka, jedan od 216 autora gdje svaki od njih ima 10 izvornih kodova i drugi od 29 autora s također 10 izvornih kodova, ali ovaj put su to izvorni kodovi kao rješenja istih 10 zadataka dok su u prvom primjeru oni birani nasumično. 
 
 \section{Rezultati i rasprava} \label{results}
+
+Napravljeno je nekoliko različitih eksperimenata s različitim hiperparametrima i selekcijom značajki kako bi dobili što bolju sliku kako algoritam radi. Svaki od eksperimenata je odrađen k-preklop među validacijom(eng. \textit{k-fold cross validation}), gdje je k u našem slučaju 10 jer imamo po 10 rješenja za svakog autora, kako bi dobili što objektivnije i točnije rezultate. U svakoj iteraciji 9 izvornih kodova autora birano je u skup za treniranje, a preostali izvorni kod u skup za testiranje.
+Također su prikazane po dvije slike za svaki eksperiment, jedna sa skupom od leksičkih i strukturnih značajki te jedna sa skupom leksičkih, strukturnih i sintaksnih značajki. To je napravljeno kako bi što bolje shvatili koliko su koje značajke bitne za prepoznavanje autora.
+
+\subsection{Rezultati bez selekcije značajki}
+
+U ovom poglavlju predstavljam rezultate bez selekcije značajki. Krenuli smo s pretpostavkom da će nam sintaksne značajke donijeti veliko poboljšanje klasifikatora što spominju i \cite{islam}, no kao što možemo vidjeti na slikama \ref{sve_znacajke} i \ref{leks_znacajke} nad naša dva skupa podataka gotov jednaku točnost imamo u slučaju sa 29 autora, dok su na skupu sa 216 autora ukupnu točnost dosta smanjili. 
+
+\newpage
+\begin{figure}[htb]
+  \centering
+  \begin{minipage}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{fig/sve_znacajke_bez_fs.png}
+    \caption{Točnost klasifikatora uz leksičke, strukturne i sintaksne značajke}
+    \label{sve_znacajke}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.4\textwidth} 
+    \includegraphics[width=\textwidth]{fig/leksicke_bez_fs.png}
+    \caption{Točnost klasifikatora uz leksičke i strukturne značajke}
+    \label{leks_znacajke}
+  \end{minipage}
+\end{figure}
+
+\subsection{Rezultati uz selekciju značajki sadržajem informacije}
+
+U ovom poglavlju predstavljam rezultate kada je korištena selekcija značajki uzajamni sadržajem informacije koja bi zbog prirode značajki koje su dosta rijetke(eng.~\textit{sparse}) trebala povećati točnost klasifikatora s obzirom na slučaj bez selekcije značajki što se doista i pokazalo istinito te to možemo vidjeti na slikama \ref{sve_znacajke_ig} i \ref{leksicke_ig}. Primjećujemo da su nam sintaksne značajke i u ovom slučaju donijele pogoršanje točnosti. \\
+	Također pošto selekcija značajki smanjuje dimenzionalost vektora značajki sa stotina tisuća na desetke tisuća donosi nam veliko ubrzanje učenja klasifikatora.
+
+\begin{figure}[htb]
+  \centering
+  \begin{minipage}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{fig/ig_sve_znacajke.png}
+    \caption{Točnost klasifikatora uz leksičke, strukturne i sintaksne značajke}
+    \label{sve_znacajke_ig}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{fig/leksicke_fs.png}
+    \caption{Točnost klasifikatora uz leksičke i strukturne značajke}
+    \label{leksicke_ig}
+  \end{minipage}
+\end{figure}
+
+\newpage
+
+\subsection{Rezultati uz selekciju značajki varijancom}
+
+U ovom poglavlju predstavljam rezultate korištenjem selekcije značajki varijancom, u eksperimentu je korištena granica varijance od $0.03$ jer je pokazala najbolje rezultate. Možemo primjetiti da su rezultati bolji nego kada smo koristili sve značajke, no lošiji su nego sa selekcijom uzajamnim sadržajem informacije što vidimo na slikama \ref{vt_sve} i \ref{vt_leksicke}.
+
+\begin{figure}[htb]
+  \centering
+  \begin{minipage}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{fig/vt_sve.png}
+    \caption{Točnost klasifikatora uz leksičke, strukturne i sintaksne značajke}
+    \label{vt_sve}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.4\textwidth}
+    \includegraphics[width=\textwidth]{fig/leksicke_vt.png}
+    \caption{Točnost klasifikatora uz leksičke i strukturne značajke}
+    \label{vt_leksicke}
+  \end{minipage}
+\end{figure}
+
+\subsection{Rasprava}
+
+Prva stvar koju možemo primjetiti da što manji broj autora predamo klasifikatoru na treniranje to su nam rezultati bolji, što ima i smisla. Sintaksne značajke nam uglavnom donose lošije rezultate nego što smo pretpostavljali te vidjeli u \cite{islam}. Iz tog razloga te što nam donose stotine tisuća značajki i znatno usporavaju treniranje odlučio sam ih izbaciti za potrebe web aplikacije $Turtle$. Kao zaključak naveo bih da su rezultati dovoljno dobri, ali ipak nisam došao ni blizu rekreiranju rezultata iz \cite{islam}. 
+
+\newpage
+
+\section{Implementacijski detalji}
+
+\renewcommand{\footnotesize}{\fontsize{8pt}{10pt}\selectfont}
+
+
+Za implementaciju korišten je programski jezik \textit{Python 2.7}te njegova biblioteka \textit{scikit-learn} \footnote{\url{http://scikit-learn.org/stable/}} koja nudi pristup mnogim algoritmima strojnog učenja na vrlo jednostavan način. Kao implementaciju slučajne šume korišten je  \textit{RandomForestClassifier} \footnote{http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html}. Selekciju značajaki uzajamni sadržajem informacije implementirao sam pomoću \textit{ExtraTreeClassifier} \footnote{\url{http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.ExtraTreesClassifier.html}} koji omogućava biranje idućih čvorova pomoću sadržaja informacije te nam nakon učenja omogućava pristup najbitnijim značajkama. Selekciju značajki iznosom varijance implementirao sam korištenjem  \textit{VarianceThreshold} \footnote{\url{http://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.VarianceThreshold.html}}.
+
 
 \newgeometry{bottom=25mm, top=0mm, right=25mm, left=30mm}
 

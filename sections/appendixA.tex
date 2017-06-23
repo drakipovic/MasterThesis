@@ -1,4 +1,31 @@
-\chapter*{Dodatak A}\label{node_types}
-\addcontentsline{toc}{chapter}{Dodatak A}
+\appendix
+\chapter{Tipovi čvorova apstraktnog sinstaksnog stabla}\label{node_types}
 
+\begin{table}[H]
+\centering
+\caption{Tipovi čvorova apstraktnog sintaksnog stabla}
+\label{node_types_table}
+\begin{adjustbox}{width=\textwidth}
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
 
+Additive Expression   & AndExpression           & Argument                 & ArgumentList          \\ \hline
+ArrayIndexing         & AssignmentExpr          & BitAndExpression         & BlockStarter          \\ \hline
+BreakStatement        & Callee                  & CallExpression           & CastExpression        \\ \hline
+CastTarget            & CompoundStatement       & Condition                & ConditionalExpression \\ \hline
+ContinueStatement     & DoStatement             & ElseStatement            & EqualityExpression    \\ \hline
+ExclusiveOrExpression & Expression              & ExpressionStatement      & ForInit               \\ \hline
+ForStatement          & FunctionDef             & GotoStatement            & Identifier            \\ \hline
+IdentifierDecl        & IdentifierDeclStatemetn & IdentifierDeclType       & IfStatement           \\ \hline
+IncDec                & IncDecOp                & InclusiveOrExpression    & InitializerList       \\ \hline
+Label                 & MemberAccess            & MultiplicativeExpression & OrExpression          \\ \hline
+Parameter             & ParameterList           & ParameterType            & PrimaryExpression     \\ \hline
+PtrMemberAccess       & RelationalExpression    & ReturnStatement          & ReturnType            \\ \hline
+ShiftExpression       & Sizeof                  & SizeofExpr               & SizeofOperand         \\ \hline
+Statement             & SwitchStatemetn         & UnaryExpression          & UnaryOp               \\ \hline
+UnaryOperator         & WhileStatement          & \multicolumn{2}{l|}{}                            \\ \hline
+
+\end{tabular}
+\end{adjustbox}
+\end{table}
