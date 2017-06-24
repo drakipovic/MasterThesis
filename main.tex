@@ -6,13 +6,14 @@
 %\pagestyle{empty} %disable headers and footers
 \pagenumbering{roman} %use roman page numbering in the frontmatter
 \input{sections/frontpage.tex}
-
-\newgeometry{top=25mm, left=30mm, right=25mm, bottom=25mm}
+\restoregeometry
 
 \cleardoublepage
+
+\newgeometry{top=30mm}
 \pdfbookmark[0]{Sadržaj}{label:sadrzaj}
 %\pagestyle{fancy} %enable headers and footers again
-\newgeometry{top=5mm, left=30mm, right=25mm, bottom=25mm}
+
 \tableofcontents 
 %\listoftodos
 
@@ -20,28 +21,24 @@
 \pagenumbering{arabic} %use arabic page numbering in the mainmatter
 \input{sections/introduction.tex}
 
-\newgeometry{top=-5mm}
 \input{sections/deanonymization.tex}
 
-\newgeometry{top=-5mm}
 \input{sections/similiarities.tex}
 
-\newgeometry{top=-5mm}
 \input{sections/integration.tex}
 
-\newgeometry{top=5mm}
+\newgeometry{top=30mm}
 \input{sections/conclusion.tex}
 
-\newgeometry{top=25mm}
-\input{sections/summary.tex}
-
-\newgeometry{top=5mm}
+\newgeometry{top=30mm}
 \printbibliography[heading=bibintoc, title={Literatura}]
 
-\newgeometry{top=-5mm}
+\newpage
+
+\input{sections/summary.tex}
+
 \input{sections/appendixA.tex}
 
-\newgeometry{top=-5mm}
 \input{sections/appendixB.tex}
 
 \end{document}
