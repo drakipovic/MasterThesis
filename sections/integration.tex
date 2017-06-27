@@ -1,4 +1,4 @@
-\chapter{Integracija dva sustava}
+\chapter{Arhitektura sustava za detekciju plagijata te utvrđivanje autorstva izvornih kodova}
 
 Svaka od komponenti sustava implementirana je u zasebnom projektu, sličnosti izvornih kodova su implementirane uz $Turtle$ dok je određivanje autorstva implementirano u projektu nazvanom $Bee$. $Bee$ je dizajniran kao skripta komandne linije kojoj se predaju skup za treniranje i skup za testiranje te koja vraća točnost naučenog klasifikatora. Pošto je $Turtle$ web aplikacija bilo je potrebno nekako spojiti ova dva sustava. To je napravljeno tako da je u $Bee$ napisan mali web server koji nudi nekoliko API endpoint-a za treniranje i predikciju. Te API endpoint-e koristi klijentski kod $Turtle$ te su dvije aplikacije tako integrirane. Razloga za ovakvu integraciju je nekoliko, ali najvažniji je fleksibilnost, pošto sada funkcije $Bee$ možemo koristiti kroz više različitih aplikacija. 
 
