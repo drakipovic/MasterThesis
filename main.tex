@@ -10,13 +10,13 @@
 
 \cleardoublepage
 
-\newgeometry{top=30mm}
 \pdfbookmark[0]{Sadržaj}{label:sadrzaj}
 %\pagestyle{fancy} %enable headers and footers again
 
 \tableofcontents 
 %\listoftodos
 
+\cleardoublepage
 %mainmatter
 \pagenumbering{arabic} %use arabic page numbering in the mainmatter
 \input{sections/introduction.tex}
@@ -27,10 +27,8 @@
 
 \input{sections/integration.tex}
 
-\newgeometry{top=30mm}
 \input{sections/conclusion.tex}
 
-\newgeometry{top=30mm}
 \printbibliography[heading=bibintoc, title={Literatura}]
 
 \newpage
