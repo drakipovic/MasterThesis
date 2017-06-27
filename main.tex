@@ -4,18 +4,21 @@
 
 %frontmatter
 %\pagestyle{empty} %disable headers and footers
-\pagenumbering{roman} %use roman page numbering in the frontmatter
 \input{sections/frontpage.tex}
 \restoregeometry
 
-\cleardoublepage
+\input{sections/izvornik.tex}
+
+\pagenumbering{roman} %use roman page numbering in the frontmatter
+
+\input{sections/acknowledgments.tex}
+
 
 \pdfbookmark[0]{Sadržaj}{label:sadrzaj}
 %\pagestyle{fancy} %enable headers and footers again
 
 \tableofcontents 
 %\listoftodos
-
 \cleardoublepage
 %mainmatter
 \pagenumbering{arabic} %use arabic page numbering in the mainmatter
