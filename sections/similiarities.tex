@@ -1,6 +1,6 @@
 \chapter{Određivanje sličnosti izvornih kodova}
 
-Ne postoji sustav specijaliziran za detekciju plagijata koji može sa sto postotnom sigurnošću utvrditi da je nešto plagijat. Kako bi odredili plagijat potreban je ljudski faktor.  Odmah možemo uočiti da to nije baš uvijek efikasno, kada bi morali pronaći plagijate među tisućama dokumenata čovjeku bi trebalo puno vremena. Upravo iz tog razloga razvijamo sustav koji bi odredio sličnost među parovima dokumenata te izbacio parove za koje smatra da nikako ne mogu biti plagijat te uvelike ubrzao i olakšao posao ljudima. Dokumenti mogu biti teksutalne datoteke, izvorni kodovi, pjesme, itd. U ovom radu naglasak je na detekciji plagijata izvornih kodova te je u nastavku to detaljnije opisano. \\
+Ne postoji sustav specijaliziran za detekciju plagijata koji može sa sto postotnom sigurnošću utvrditi da je nešto plagijat. Kako bi odredili plagijat potreban je ljudski faktor.  Odmah možemo uočiti da to nije baš uvijek efikasno, kada bi morali pronaći plagijate među tisućama dokumenata čovjeku bi trebalo puno vremena. Upravo iz tog razloga razvijamo sustav koji bi odredio sličnost među parovima dokumenata te izbacio parove za koje smatra da nikako ne mogu biti plagijat te uvelike ubrzao i olakšao posao ljudima. Dokumenti mogu biti tekstualne datoteke, izvorni kodovi, pjesme, itd. U ovom radu naglasak je na detekciji plagijata izvornih kodova te je u nastavku to detaljnije opisano. \\
 	
 	Određivanje sličnosti izvornih kodova u svrhu detekcije plagijata je relativno neistraženo područje. Postoje dva vrlo slična, ali sada već stara sustava (nastali su prije više od 10 godina op.a)  \cite{moss} \cite{jplag} koji se baziraju na računanju otiska (eng.~$document fingerprint$) izvornog koda algoritmom $winnowing$ koji je detaljnije opisan u \cite{winnowing}. $Turtle$, kao i sustav implementiran na završnom radu \cite{plagijator}, koristi $winnowing$ za račun otiska izvornog koda te preoblikovanje izvornog koda prije nego se otisak računa (detaljnije opisano u radu \cite{dorian}), no s dodatnim poboljšanjima. Neka od poboljšanja su veći broj preoblikovanja, što rezultira u boljim mjerama sličnosti i brže ukupno vrijeme. U nastavku poglavlja detaljnije su opisani koraci kojim sustav dolazi do mjera sličnosti, najvažnije pomoćne strukture podataka i algoritmi te usporedba s performansama starog sustava.
 
@@ -71,12 +71,12 @@ Glavni razlog za korištenje preoblikovanja koda prije nego krenemo računati ot
 		\item Dodavanje praznina
 		\item Zamjena imena varijabli
 		\item Promjena jedne petlje u drugu
-		\item Rastav naredbi na podbaredbe
+		\item Rastav naredbi na podnaredbe
 		\item Izdvajanje koda u funkcije
 		\item Promjena redoslijeda naredbi
 	\end{itemize}
 	
-\noindent Odmah možemo primjetiti da je $winnowing$ otporan na dodavanje praznina jer se one brišu prije računanja sažetaka. Također izdvajanje koda u funkcije se detektira jer nema razlike gdje točno se isječci koda nalaze za rezultat algoritma. Za ostale modifikacije trebamo napisati posebne funkcije koje će preoblikovati izvorni kod kako bi i one mogle biti detektirane. Naravno, modifikacije kao što je rastav naredbi na podnaredbe  je jako teško detektirati bez korištenja jezičnog prevodica i neke vrste sintaksnih stabala te se tu limitiramo i njih $Turtle$ ne zna detektirati. U nastavku poglavlja opisana su korištena preoblikovanja izvornog koda. Treba naglasiti da ovakvih preoblikovanja može biti jako puno te je implementacija dizajnirana tako da se svako preoblikovanje može vrlo lako dodati.
+\noindent Odmah možemo primijetiti da je $winnowing$ otporan na dodavanje praznina jer se one brišu prije računanja sažetaka. Također izdvajanje koda u funkcije se detektira jer nema razlike gdje točno se isječci koda nalaze za rezultat algoritma. Za ostale modifikacije trebamo napisati posebne funkcije koje će preoblikovati izvorni kod kako bi i one mogle biti detektirane. Naravno, modifikacije kao što je rastav naredbi na podnaredbe  je jako teško detektirati bez korištenja jezičnog prevodioca i neke vrste sintaksnih stabala te se tu limitiramo i njih $Turtle$ ne zna detektirati. U nastavku poglavlja opisana su korištena preoblikovanja izvornog koda. Treba naglasiti da ovakvih preoblikovanja može biti jako puno te je implementacija dizajnirana tako da se svako preoblikovanje može vrlo lako dodati.
 
 
 \subsection{Zamjena imena varijabli}
@@ -86,7 +86,7 @@ Ideja je da se sva imena varijabli zamjene univerzalnim imenom, u ovom slučaju 
 
 \subsection{Zamjena while petlji u for petlje}
 
-Ovdje je opisan postupak za programski jezik $C++$, no postupak se može uz male preinake primjeniti i na sve poznatije programske jezike. Prvo primjetimo oblik $while$ petlje:
+Ovdje je opisan postupak za programski jezik $C++$, no postupak se može uz male preinake primijeniti i na sve poznatije programske jezike. Prvo primijetimo oblik $while$ petlje:
 \begin{lstlisting}
 	init; while(test){ body; post; }
 \end{lstlisting}
@@ -119,4 +119,4 @@ Kao što je spomenuto ranije ovaj sustav je novo implementirana verzija sustava 
 	\label{fig:execution_time}
 \end{figure}
 
-\noindent Mjereno je vrijeme od primitka izvornih kodova pa sve do ispisa parova sličnosti. Možemo primjetiti da oba sustava imaju linearnu složenost, no zbog puno bolje i pametnije implementacije $Turtle$ je i do pet puta bolji (slika \ref{fig:execution_time}). $Turtle$ također zbog više preoblikovanja izvornog koda nudi bolju detekciju nekih modifikacija (npr. zamjena $for$ u $while$ petlje). Ostatak modifikacija te izračunatih sličnosti nisu posebno opisivani jer su vrlo slični već opisanima u \cite{plagijator}.
+\noindent Mjereno je vrijeme od primitka izvornih kodova pa sve do ispisa parova sličnosti. Možemo primijetiti da oba sustava imaju linearnu složenost, no zbog puno bolje i pametnije implementacije $Turtle$ je i do pet puta bolji (slika \ref{fig:execution_time}). $Turtle$ također zbog više preoblikovanja izvornog koda nudi bolju detekciju nekih modifikacija (npr. zamjena $for$ u $while$ petlje). Ostatak modifikacija te izračunatih sličnosti nisu posebno opisivani jer su vrlo slični već opisanima u \cite{plagijator}.

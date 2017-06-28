@@ -1,9 +1,9 @@
 \chapter{Razvijeni sustav za detekciju plagijata te utvrđivanje autorstva izvornih kodova}
 
-Razvijeni sustav za detekciju plagijata sastoji se od dvije komponente čiji su  algoritmi opisani u prethodnim poglavljima. Ovdje ukratko opisujemo njihove implementacije te arhitekturu cijelog sustava. Prva komponenta razvijenog sustava je utvrđivanje autorstva izvornog koda te je ona razdvojena u poseban projekt nazvan $Bee$. Ovo omogućuje lakši razvoj algoritama strojnog učenja s kojim utvrđujemo autorstvo te nam daje veću fleksibilnost za korištenje te komponente izvan konteksta detekcije plagijata. $Bee$ je dizajniran kao skripta komandne linije kojoj se predaju skup za treniranje i skup za testiranje te koja vraća točnost naučenog klasifikatora jer nam taj način nudi lako isprobavanje raznih konfiguracija i skupova izvornih kodova. $Turtle$ je druga i ujedno glavna komponenta sustava koja određuje sličnosti izvornih kodova te nudi korisnicima web sučelje za pristup algoritmima detekcije plagijata. Korisnici mogu vidjeti sortirane parove izvornih kodova te njihove pripadne sličnosti nakon što uplodaju željenu datoteku s izvornim kodovima. Sustav nudi i detaljniji uvid u parove izvornih kodova i to tako da jednakim bojama boja slične dijelove izvornih kodova. Arhitektura cijelog sustava detaljnije je opisana je u poglavlju \ref{sec:architecture}. Sustav se također spaja na sustav $Bee$ te je moguće trenirat klasifikator i predviđati autore kroz njegove sučelje. 
+Razvijeni sustav za detekciju plagijata sastoji se od dvije komponente čiji su  algoritmi opisani u prethodnim poglavljima. Ovdje ukratko opisujemo njihove implementacije te arhitekturu cijelog sustava. Prva komponenta razvijenog sustava je utvrđivanje autorstva izvornog koda te je ona razdvojena u poseban projekt nazvan $Bee$. Ovo omogućuje lakši razvoj algoritama strojnog učenja s kojim utvrđujemo autorstvo te nam daje veću fleksibilnost za korištenje te komponente izvan konteksta detekcije plagijata. $Bee$ je dizajniran kao skripta komandne linije kojoj se predaju skup za treniranje i skup za testiranje te koja vraća točnost naučenog klasifikatora jer nam taj način nudi lako isprobavanje raznih konfiguracija i skupova izvornih kodova. $Turtle$ je druga i ujedno glavna komponenta sustava koja određuje sličnosti izvornih kodova te nudi korisnicima web sučelje za pristup algoritmima detekcije plagijata. Korisnici mogu vidjeti sortirane parove izvornih kodova te njihove pripadne sličnosti nakon što uploadaju željenu datoteku s izvornim kodovima. Sustav nudi i detaljniji uvid u parove izvornih kodova i to tako da jednakim bojama boja slične dijelove izvornih kodova. Arhitektura cijelog sustava detaljnije je opisana je u poglavlju \ref{sec:architecture}. Sustav se također spaja na sustav $Bee$ te je moguće trenirati klasifikator i predviđati autore kroz njegove sučelje. 
 \\
 
-	Ovaj sustav je prvi sustav koji nudi korisnicima detekciju plagijata kroz dva različita načina te je ovo veliko unaprijeđenje na sve dosadašnje sustave za detekciju plagijata izvornih kodova. $Turtle$, a također i $Bee$ trenutno podržavaju samo programski jezik $C++$ iako je u implementacijama obje komponente ostavljenja mogućnost lakog dodavanja novih jezika, ali to je ostavljeno za budući rad. Ovo poglavlje opisuje i korisničko sučelje sutava $Turtle$.
+	Ovaj sustav je prvi sustav koji nudi korisnicima detekciju plagijata kroz dva različita načina te je ovo veliko unaprijeđenje na sve dosadašnje sustave za detekciju plagijata izvornih kodova. $Turtle$, a također i $Bee$ trenutno podržavaju samo programski jezik $C++$ iako je u implementacijama obje komponente ostavljena mogućnost lakog dodavanja novih jezika, ali to je ostavljeno za budući rad. Ovo poglavlje opisuje i korisničko sučelje sustava $Turtle$.
 
 
 \section{Arhitektura sustava} \label{sec:architecture}
@@ -25,7 +25,7 @@ U ovom potpoglavlju opisano je korisničko sučelje sustava $Turtle$ kroz nekoli
 \begin{figure}[H]
 	\centering
 	\fbox{\includegraphics[width=0.9\textwidth,keepaspectratio]{fig/submit.png}}
-	\caption{Početna stranica, ovdje uploadamo zip datatoteku koju želimo provjeriti, također možemo izabrat unaprijed trenirani klasifikator kako bi mogli dobili i najvjerojatnije autore svakog koda.}
+	\caption{Početna stranica, ovdje uploadamo zip datoteku koju želimo provjeriti, također možemo izabrati unaprijed trenirani klasifikator kako bi mogli dobili i najvjerojatnije autore svakog koda.}
 \end{figure}
 
 \begin{figure}[H]
@@ -43,7 +43,7 @@ U ovom potpoglavlju opisano je korisničko sučelje sustava $Turtle$ kroz nekoli
 \begin{figure}[H]
 	\centering
 	\fbox{\includegraphics[width=0.9\textwidth,keepaspectratio]{fig/colors.png}}
-	\caption{Ako kliknemo na više detalja koji postoji za svaki par izvornih kodova dobijemo ovakav prozor gdje su obojani dijelovi koda koji su slični i što nam uvelike olakšava detekciju plagijata.}
+	\caption{Ako kliknemo na više detalja koji postoji za svaki par izvornih kodova dobijemo ovakav prozor gdje su obojeni dijelovi koda koji su slični i što nam uvelike olakšava detekciju plagijata.}
 \end{figure}
 
 \begin{figure}[H]
