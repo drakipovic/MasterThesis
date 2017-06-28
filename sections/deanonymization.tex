@@ -9,7 +9,7 @@ Kao što je već spomenuto, kako bi algoritmi strojnog učenja radili potrebni s
 	U nastavku su detaljno opisana i objašnjena sva tri tipa značajki. Većina tih značajki preuzeta je iz \cite{islam} dok su neke ideja samog autora. U većini značajki korištena je matematička operacija prirodnog logaritmiranja zbog svojstva da kako idemo prema većim vrijednostima ona sve manje i manje raste te dobro opisuje relativne razlike među značajkama. Neke od značajki su podijeljenje s duljinom izvornog koda kako bi bolje opisale frekvenciju pojavljivanja te značajke. 
 
 \subsection{Leksičke značajke}
-Leksičke značajke opisuju preferira li autor izvornog koda neke ključne riječi više od drugih(npr. for više od while), koristi li više funkcije ili piše monolitan kod, razne statistike(npr. prosječan broj parametara unutar funkcija), itd. Također izvorni kod se tokenizira te se računa frekvencija tako dobivenih tokena. \textit{Tablica} \ref{lexical} detaljno opisuje svaku od korištenih značajki. 
+Leksičke značajke opisuju preferira li autor izvornog koda neke ključne riječi više od drugih (npr. for više od while), koristi li više funkcije ili piše monolitan kod, razne statistike (npr. prosječan broj parametara unutar funkcija), itd. Također izvorni kod se tokenizira te se računa frekvencija tako dobivenih tokena. \textit{Tablica} \ref{lexical} detaljno opisuje svaku od korištenih značajki. 
 
 \subsection{Strukturne značajke}
 Strukturne značajke opisuju kakvu strukturu autor koristi dok piše izvorni kod, npr. koristi li tabove ili razmake na početku linije, piše li novu liniju prije nego otvori kontrolni blok, itd. \textit{Tablica} \ref{layout} detaljno opisuje svaku od korištenih značajki.
@@ -24,7 +24,7 @@ Strukturne značajke opisuju kakvu strukturu autor koristi dok piše izvorni kod
 \hline
 \textbf{\textit{Ime značajke}}                 & \textbf{\textit{Definicija}}                                                                                                                              & \textbf{\textit{Izraz}}                       & \textbf{\textit{Veličina}}                                                                                             \\ \hline
 Frekvencija unigrama           & \begin{tabular}[c]{@{}l@{}}Unigram definiramo kao jednu riječ\\  izvornog koda\end{tabular}                                             & UnigramFreq                 & \begin{tabular}[c]{@{}l@{}}dinamično, oko 20000 za 2160 \\ izvornih kodova (216 autora)\end{tabular} \\ \hline
-Broj naredbi grananja i petlji & \begin{tabular}[c]{@{}l@{}}Zbroj svih pojavljivanja naredbi grananja\\ i petlji(for, while, do, if, else if, else, switch)\end{tabular} & ln(zbroj/duljina)           & 7                                                                                                    \\ \hline
+Broj naredbi grananja i petlji & \begin{tabular}[c]{@{}l@{}}Zbroj svih pojavljivanja naredbi grananja\\ i petlji (for, while, do, if, else if, else, switch)\end{tabular} & ln(zbroj/duljina)           & 7                                                                                                    \\ \hline
 Broj ključnih riječi           & \begin{tabular}[c]{@{}l@{}}Zbroj svih pojavljivanja ključnih riječi\\ programskog jezika, konkretno C++.\end{tabular}                   & ln(zbroj\_kljucne/duljina)  & 1                                                                                                    \\ \hline
 Ternarni operatori             & Broj pojavljivanja ternarnog operatora                                                                                                  & ln(broj\_ternarnih/duljina) & 1                                                                                                    \\ \hline
 Komentari                      & Broj pojavljivanja komentara                                                                                                            & ln(broj\_kom/duljina)       & 1                                                                                                    \\ \hline
@@ -60,7 +60,7 @@ Omjer razmaka                                                                  &
 
 
 \subsection{Sintaksne značajke}
-Sintaksne značajke se dobiju kako je već spomenuto iz apstraktnog sintaksnog stabla izvornog koda. One su što se vremena tiče najskuplje jer kreacija apstraktnih sintaksnih stabala nije brza, no trebale bi dati odlične značajke koje bi uvelike pomogle u deanonimizaciji. Apstraktna sintaksna stabla(ASS) su kreirana koristeći alat \textit{joern} \cite{joern}. Ovaj alat nudi posebnu skriptu \textit{joern-parse} koja parsira i vraća čvorove i bridove apstraktnog sintaksnog stabla. Postoji 58 različitih tipova čvorova(detalji u dodatku A) koje definira \textit{joern}.\textit{Tablica} \ref{syntax} detaljno opisuje svaku od korištenih značajki.
+Sintaksne značajke se dobiju kako je već spomenuto iz apstraktnog sintaksnog stabla izvornog koda. One su što se vremena tiče najskuplje jer kreacija apstraktnih sintaksnih stabala nije brza, no trebale bi dati odlične značajke koje bi uvelike pomogle u deanonimizaciji. Apstraktna sintaksna stabla (ASS) su kreirana koristeći alat \textit{joern} \cite{joern}. Ovaj alat nudi posebnu skriptu \textit{joern-parse} koja parsira i vraća čvorove i bridove apstraktnog sintaksnog stabla. Postoji 58 različitih tipova čvorova (detalji u dodatku A) koje definira \textit{joern}.\textit{Tablica} \ref{syntax} detaljno opisuje svaku od korištenih značajki.
 
 \begin{table}[H]
 \centering
@@ -85,11 +85,11 @@ Ovako kreirane značajke rezultiraju u ogromnim, rijetkim (eng.~ \textit{sparse}
 
 \subsection{Selekcija značajki po sadržaju informacije}
 
-Svaka pojedinačna značajka vektora značajki nosi sa sobom neku količinu ili sadržaj informacije(eng. \textit{information gain}), te nam ona govori koliko je ta značajka bitna za klasifikaciju. Selektiramo samo one značajke koje sa sobom nose najveći sadržaj informacije. Definicija sadržaja informacije je detaljnije opisana u \ref{entropy}.
+Svaka pojedinačna značajka vektora značajki nosi sa sobom neku količinu ili sadržaj informacije (eng.~\textit{information gain}), te nam ona govori koliko je ta značajka bitna za klasifikaciju. Selektiramo samo one značajke koje sa sobom nose najveći sadržaj informacije. Definicija sadržaja informacije je detaljnije opisana u \ref{entropy}.
 
 \subsection{Selekcija značajki po iznosu varijance}
 
-Značajke su brojevi pa nad njima možemo računati razne statistike pa tako i varijancu. Ova selekcija značajki odbacuje sve značajke koje ne pređu unaprijed određenu granicu(eng. \textit{threshold}) iznosa varijance.
+Značajke su brojevi pa nad njima možemo računati razne statistike pa tako i varijancu. Ova selekcija značajki odbacuje sve značajke koje ne pređu unaprijed određenu granicu (eng. \textit{threshold}) iznosa varijance.
 
 \section{Slučajna šuma} \label{sec:rf}
 
@@ -124,14 +124,14 @@ Uzajamni sadržaj informacije definiran je kao:
 \begin{equation}
 		I(X;Y_{i}) = H(X) - H(X | Y_{i})
 \end{equation}
-gdje je \textit{X} klasa(autor), a $Y_{i}$ i-ta značajka iz skupa. Intuitivno ga možemo zamisliti kao količinu informacije koju daje značajka $i$ za klasu kojoj pripada.
+gdje je \textit{X} klasa (autor), a $Y_{i}$ i-ta značajka iz skupa. Intuitivno ga možemo zamisliti kao količinu informacije koju daje značajka $i$ za klasu kojoj pripada.
 
 \section{Prikupljanje podataka}
 Izvorni kodovi korišteni u eksperimentima djelo su učenika srednjih i osnovih škola koji su se natjecali na HONI-u\footnote{http://www.hsin.hr/honi/} u godini 2016-2017. Skupljena su dva skupa podataka, jedan od 216 autora gdje svaki od njih ima 10 izvornih kodova i drugi od 29 autora s također 10 izvornih kodova. Razlika je u tome što su u većem skupu izvorni kodovi birani nasumično iz skupa svih rješenja autora, dok su u manjem skupu oni odabrani kao rješenja istih 10 zadataka. Cilj ovakvog odabira  je dobiti što objektivniju točnost naučenog klasifikatora. Oba skupa su dostupna na poveznici\footnote{\url{https://www.dropbox.com/s/jqtsj2zcb285rti/master_thesis_dataset.zip?dl=0}} s dna stranice. HONI je odabran jer se činilo zanimljivo isprobati algoritam na domaćem natjecanju iako bi rezultati bilo vjerojatno bolji da se koristilo natjecanje poput Google Code Jam-a\footnote{\url{https://code.google.com/codejam/}} koje je znatno veće i nudi više mogućnosti. 
 
 \section{Rezultati i rasprava} \label{results}
 
-Napravljeno je nekoliko različitih eksperimenata s različitim hiperparametrima i selekcijom značajki kako bi dobili što bolju sliku kako algoritam radi. Svaki od eksperimenata je odrađen k-preklop među validacijom(eng. \textit{k-fold cross validation}), gdje je k u našem slučaju 10 jer imamo po 10 rješenja za svakog autora, kako bi dobili što objektivnije i točnije rezultate. U svakoj iteraciji 9 izvornih kodova autora birano je u skup za treniranje, a preostali izvorni kod u skup za testiranje. Svako od stabala unutar slučajne šume građeno je do samog kraja te je za odabir novog čvora korišteno $\sqrt{N}$ značajki kako je to preporučeno u \cite{statisticallearning}. Ovi hiperparametri su se pokazali daleko najboljima te ih nije bilo potrebe mijenjati te je jedini varijabilni hiperparametar bio broj drveća unutar slučajne šume. Također su prikazane po dvije slike za svaki eksperiment, jedna sa skupom od leksičkih i strukturnih značajki te jedna sa skupom leksičkih, strukturnih i sintaksnih značajki. To je napravljeno kako bi što bolje shvatili koliko su koje značajke bitne za prepoznavanje autora.
+Napravljeno je nekoliko različitih eksperimenata s različitim hiperparametrima i selekcijom značajki kako bi dobili što bolju sliku kako algoritam radi. Svaki od eksperimenata je odrađen k-preklop među validacijom (eng.~\textit{k-fold cross validation}), gdje je k u našem slučaju 10 jer imamo po 10 rješenja za svakog autora, kako bi dobili što objektivnije i točnije rezultate. U svakoj iteraciji 9 izvornih kodova autora birano je u skup za treniranje, a preostali izvorni kod u skup za testiranje. Svako od stabala unutar slučajne šume građeno je do samog kraja te je za odabir novog čvora korišteno $\sqrt{N}$ značajki kako je to preporučeno u \cite{statisticallearning}. Ovi hiperparametri su se pokazali daleko najboljima te ih nije bilo potrebe mijenjati te je jedini varijabilni hiperparametar bio broj drveća unutar slučajne šume. Također su prikazane po dvije slike za svaki eksperiment, jedna sa skupom od leksičkih i strukturnih značajki te jedna sa skupom leksičkih, strukturnih i sintaksnih značajki. To je napravljeno kako bi što bolje shvatili koliko su koje značajke bitne za prepoznavanje autora.
 
 \subsection{Rezultati bez selekcije značajki}
 
